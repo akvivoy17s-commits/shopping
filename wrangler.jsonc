@@ -1,0 +1,29 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+
+  "name": "shopping",
+
+  "main": "src/index.js",
+
+  "compatibility_date": "2026-09-11",
+
+  "compatibility_flags": [
+    "nodejs_compat"
+  ],
+
+  "assets": {
+    "not_found_handling": "single-page-application"
+  },
+
+  "observability": {
+    "enabled": true
+  },
+
+  "kv_namespaces": [
+    {
+      "binding": "ADMIN_SUBSCRIPTIONS",
+      "id": "b14974a05a454d9cb0138bd820590d27",
+      "remote": true
+    }
+  ]
+}

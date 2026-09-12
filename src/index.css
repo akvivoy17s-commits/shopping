@@ -1,0 +1,2068 @@
+/*
+ * Responsive breakpoints:
+ *
+ * Mobile:  <= 767px
+ * Tablet:  768px - 1023px
+ * Desktop: >= 1024px
+ *
+ * Design system:
+ * - 8px spacing system
+ * - Inter / system font stack
+ * - 44px minimum interactive target
+ * - WCAG-conscious contrast
+ */
+
+
+/* ============================================================
+   JS FASHION — DESIGN SYSTEM
+   Premium black / antique-gold identity for men & women
+   accessories. Dark surfaces carry the brand moments
+   (auth, hero, footer); light "paper" surfaces carry the
+   functional/shopping/admin screens for everyday legibility.
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap');
+
+:root {
+  /* --- brand core --- */
+  --color-void: #0b0b0d;
+  --color-void-soft: #131317;
+  --color-charcoal: #1c1b1f;
+
+  --color-gold: #c6a15b;
+  --color-gold-bright: #e6c88a;
+  --color-gold-deep: #8a6a34;
+  --color-gold-soft: rgba(198, 161, 91, 0.16);
+
+  --color-ivory: #f3efe6;
+  --color-paper: #faf8f4;
+
+  /* --- legacy token names, remapped to the brand palette
+     so every page (which references these variables) picks
+     up the new identity automatically --- */
+  --color-primary: var(--color-void);
+  --color-primary-hover: var(--color-charcoal);
+  --color-primary-active: #000000;
+
+  --color-accent: var(--color-gold);
+  --color-accent-hover: var(--color-gold-deep);
+
+  --color-background: var(--color-paper);
+  --color-surface: #ffffff;
+
+  --color-text: #1a1917;
+  --color-text-secondary: #6b6660;
+  --color-text-muted: #9b9490;
+
+  --color-border: #e7e1d6;
+  --color-border-dark: #d8cfc0;
+
+  --color-success: #3f7a55;
+  --color-success-background: #f1f7f2;
+
+  --color-error: #a8412a;
+  --color-error-background: #fbf1ee;
+
+  --color-warning: #a3781f;
+
+  --color-focus: var(--color-gold-deep);
+
+  /* --- type --- */
+  --font-display: "Cormorant Garamond", "Times New Roman", serif;
+  --font-sans: "Manrope", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 18px;
+  --radius-xl: 26px;
+
+  --shadow-sm:
+    0 1px 2px rgba(11, 11, 13, 0.05);
+
+  --shadow-md:
+    0 14px 32px rgba(11, 11, 13, 0.10);
+
+  --shadow-lg:
+    0 30px 70px rgba(11, 11, 13, 0.22);
+
+  --container-width: 1440px;
+}
+
+
+/* ============================================================
+   GLOBAL RESET
+   ============================================================ */
+
+* {
+  box-sizing: border-box;
+}
+
+
+html {
+  min-width: 320px;
+  scroll-behavior: smooth;
+}
+
+
+body {
+  margin: 0;
+
+  min-width: 320px;
+  overflow-x: hidden;
+
+  font-family: var(--font-sans);
+
+  color: var(--color-text);
+  background: var(--color-background);
+
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+h1, h2, h3,
+.font-display {
+  font-family: var(--font-display);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+img,
+svg,
+video {
+  max-width: 100%;
+}
+
+@media (max-width: 767px) {
+  .header-container {
+    width: calc(100% - 24px);
+  }
+
+  .site-header {
+    min-height: 64px;
+    height: auto;
+    padding: 8px 0;
+  }
+}
+
+
+button,
+input {
+  font: inherit;
+}
+
+
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+
+button {
+  cursor: pointer;
+}
+
+
+button:disabled {
+  cursor: not-allowed;
+}
+
+
+a {
+  color: inherit;
+}
+
+
+.icon,
+.arrow-icon,
+.eye-icon {
+  width: 18px;
+  height: 18px;
+
+  flex: 0 0 auto;
+}
+
+
+/* ============================================================
+   APP SHELL
+   ============================================================ */
+
+.app-shell {
+  min-height: 100vh;
+
+  display: flex;
+  flex-direction: column;
+}
+
+
+/* ============================================================
+   HEADER
+   ============================================================ */
+
+.site-header {
+  height: 72px;
+
+  display: flex;
+  align-items: center;
+
+  background: rgba(255, 255, 255, 0.96);
+
+  border-bottom: 1px solid var(--color-border);
+
+  position: relative;
+  z-index: 10;
+}
+
+
+.header-container {
+  width: min(
+    calc(100% - 48px),
+    var(--container-width)
+  );
+
+  margin: 0 auto;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+
+.brand-logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+
+  text-decoration: none;
+
+  min-height: 44px;
+}
+
+
+.brand-symbol {
+  width: 36px;
+  height: 36px;
+
+  display: grid;
+  place-items: center;
+
+  border-radius: 9px;
+
+  color: white;
+  background: var(--color-primary);
+
+  font-size: 17px;
+  font-weight: 800;
+
+  transform: skew(-8deg);
+}
+
+
+.brand-name {
+  font-size: 21px;
+  font-weight: 800;
+
+  letter-spacing: 0.08em;
+}
+
+
+.header-help {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  color: var(--color-text-secondary);
+
+  font-size: 14px;
+}
+
+
+.header-help a {
+  color: var(--color-text);
+  font-weight: 600;
+
+  text-decoration: none;
+
+  min-height: 44px;
+
+  display: inline-flex;
+  align-items: center;
+}
+
+
+.header-help a:hover {
+  color: var(--color-accent);
+}
+
+
+/* ============================================================
+   MAIN
+   ============================================================ */
+
+.main-content {
+  flex: 1;
+
+  display: flex;
+  align-items: stretch;
+
+  padding: 40px 24px;
+}
+
+
+.auth-container {
+  width: min(
+    100%,
+    var(--container-width)
+  );
+
+  min-height: 700px;
+
+  margin: auto;
+
+  display: grid;
+
+  grid-template-columns:
+    minmax(380px, 0.9fr)
+    minmax(500px, 1.1fr);
+
+  background: var(--color-surface);
+
+  border-radius: var(--radius-xl);
+
+  overflow: hidden;
+
+  box-shadow: var(--shadow-lg);
+}
+
+
+/* ============================================================
+   PROMOTIONAL PANEL
+   ============================================================ */
+
+.promo-panel {
+  position: relative;
+
+  overflow: hidden;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  padding: 64px 56px;
+
+  color: white;
+
+  background:
+    radial-gradient(
+      circle at 80% 20%,
+      rgba(37, 99, 235, 0.35),
+      transparent 30%
+    ),
+    radial-gradient(
+      circle at 10% 80%,
+      rgba(99, 102, 241, 0.2),
+      transparent 35%
+    ),
+    #0b1220;
+}
+
+
+.promo-panel::before {
+  content: "";
+
+  position: absolute;
+
+  width: 420px;
+  height: 420px;
+
+  right: -160px;
+  top: 80px;
+
+  border: 1px solid
+    rgba(255, 255, 255, 0.1);
+
+  border-radius: 50%;
+}
+
+
+.promo-panel::after {
+  content: "";
+
+  position: absolute;
+
+  width: 620px;
+  height: 620px;
+
+  left: -400px;
+  bottom: -400px;
+
+  border: 1px solid
+    rgba(255, 255, 255, 0.08);
+
+  border-radius: 50%;
+}
+
+
+.promo-content {
+  position: relative;
+  z-index: 2;
+
+  max-width: 500px;
+}
+
+
+.promo-eyebrow {
+  display: inline-block;
+
+  margin-bottom: 24px;
+
+  font-size: 12px;
+  font-weight: 700;
+
+  letter-spacing: 0.16em;
+
+  color: #93c5fd;
+}
+
+
+.promo-content h1 {
+  margin: 0;
+
+  font-size: clamp(40px, 4vw, 64px);
+
+  line-height: 1.03;
+
+  letter-spacing: -0.045em;
+}
+
+
+.promo-content h1 span {
+  color: #93c5fd;
+}
+
+
+.promo-content p {
+  max-width: 440px;
+
+  margin: 28px 0;
+
+  color: #cbd5e1;
+
+  font-size: 16px;
+
+  line-height: 1.7;
+}
+
+
+.promo-button {
+  min-height: 48px;
+
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+
+  padding: 0 20px;
+
+  color: var(--color-primary);
+
+  background: white;
+
+  border-radius: var(--radius-md);
+
+  text-decoration: none;
+
+  font-size: 14px;
+  font-weight: 700;
+
+  transition:
+    transform 160ms ease,
+    box-shadow 160ms ease;
+}
+
+
+.promo-button:hover {
+  transform: translateY(-2px);
+
+  box-shadow:
+    0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+
+.promo-visual {
+  position: relative;
+
+  height: 260px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+.product-orb {
+  width: 220px;
+  height: 220px;
+
+  position: relative;
+
+  display: grid;
+  place-items: center;
+
+  border-radius: 50%;
+
+  background:
+    radial-gradient(
+      circle at 35% 30%,
+      #60a5fa,
+      #2563eb 35%,
+      #111827 70%
+    );
+
+  box-shadow:
+    0 0 80px rgba(37, 99, 235, 0.45);
+}
+
+
+.orb-core {
+  width: 94px;
+  height: 94px;
+
+  display: grid;
+  place-items: center;
+
+  border-radius: 30px;
+
+  color: white;
+
+  background: rgba(15, 23, 42, 0.55);
+
+  border: 1px solid
+    rgba(255, 255, 255, 0.25);
+
+  backdrop-filter: blur(12px);
+
+  font-size: 48px;
+  font-weight: 900;
+
+  transform: rotate(-8deg);
+}
+
+
+.orb-ring {
+  position: absolute;
+
+  border-radius: 50%;
+
+  border: 1px solid
+    rgba(147, 197, 253, 0.5);
+}
+
+
+.ring-one {
+  width: 280px;
+  height: 80px;
+
+  transform: rotate(-28deg);
+}
+
+
+.ring-two {
+  width: 300px;
+  height: 100px;
+
+  transform: rotate(40deg);
+}
+
+
+.floating-card {
+  position: absolute;
+
+  z-index: 4;
+
+  padding: 14px 18px;
+
+  display: flex;
+  flex-direction: column;
+
+  border-radius: 12px;
+
+  background:
+    rgba(255, 255, 255, 0.1);
+
+  border: 1px solid
+    rgba(255, 255, 255, 0.15);
+
+  backdrop-filter: blur(12px);
+
+  box-shadow:
+    0 20px 40px rgba(0, 0, 0, 0.2);
+}
+
+
+.floating-card span {
+  color: #93c5fd;
+
+  font-size: 10px;
+  font-weight: 800;
+
+  letter-spacing: 0.12em;
+}
+
+
+.floating-card strong {
+  font-size: 16px;
+}
+
+
+.floating-card small {
+  margin-top: 3px;
+
+  color: #cbd5e1;
+
+  font-size: 11px;
+}
+
+
+.card-one {
+  left: 0;
+  top: 25px;
+
+  transform: rotate(-6deg);
+}
+
+
+.card-two {
+  right: 0;
+  bottom: 10px;
+
+  transform: rotate(6deg);
+}
+
+
+.card-two strong {
+  font-size: 28px;
+}
+
+
+/* ============================================================
+   LOGIN PANEL
+   ============================================================ */
+
+.login-panel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: white;
+
+  padding: 60px 70px;
+}
+
+
+.login-content {
+  width: min(
+    100%,
+    430px
+  );
+}
+
+
+.login-heading {
+  margin-bottom: 28px;
+}
+
+
+.mobile-brand {
+  display: none;
+}
+
+
+.login-heading h2 {
+  margin: 0 0 10px;
+
+  font-size: 34px;
+  line-height: 1.15;
+
+  letter-spacing: -0.035em;
+}
+
+
+.login-heading p {
+  margin: 0;
+
+  color: var(--color-text-secondary);
+
+  font-size: 15px;
+
+  line-height: 1.6;
+}
+
+
+/* ============================================================
+   LOGIN MODE
+   ============================================================ */
+
+.login-mode {
+  display: grid;
+
+  grid-template-columns: 1fr 1fr;
+
+  margin-bottom: 24px;
+
+  padding: 4px;
+
+  border-radius: 10px;
+
+  background: #f1f5f9;
+}
+
+
+.login-mode button {
+  min-height: 44px;
+
+  border: 0;
+  border-radius: 7px;
+
+  background: transparent;
+
+  color: var(--color-text-secondary);
+
+  font-size: 13px;
+  font-weight: 700;
+
+  transition:
+    color 160ms ease,
+    background 160ms ease,
+    box-shadow 160ms ease;
+}
+
+
+.login-mode button.active {
+  color: var(--color-text);
+
+  background: white;
+
+  box-shadow:
+    0 1px 4px rgba(15, 23, 42, 0.1);
+}
+
+
+.login-mode button:disabled {
+  opacity: 0.5;
+}
+
+
+/* ============================================================
+   FORM
+   ============================================================ */
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+
+  gap: 22px;
+}
+
+
+.field-group {
+  display: flex;
+  flex-direction: column;
+
+  gap: 8px;
+}
+
+
+.field-group > label {
+  color: var(--color-text);
+
+  font-size: 14px;
+  font-weight: 700;
+}
+
+
+.input-wrapper,
+.password-wrapper {
+  position: relative;
+
+  display: flex;
+  align-items: center;
+}
+
+
+.input-wrapper input,
+.password-wrapper input {
+  width: 100%;
+
+  height: 52px;
+
+  padding:
+    0 48px 0 15px;
+
+  border: 1px solid
+    var(--color-border-dark);
+
+  border-radius: var(--radius-md);
+
+  outline: none;
+
+  color: var(--color-text);
+
+  background: white;
+
+  font-size: 15px;
+
+  transition:
+    border-color 160ms ease,
+    box-shadow 160ms ease,
+    background 160ms ease;
+}
+
+
+.input-wrapper input::placeholder,
+.password-wrapper input::placeholder {
+  color: var(--color-text-muted);
+}
+
+
+.input-wrapper input:hover,
+.password-wrapper input:hover {
+  border-color: #94a3b8;
+}
+
+
+.input-wrapper input:focus,
+.password-wrapper input:focus {
+  border-color: var(--color-focus);
+
+  box-shadow:
+    0 0 0 3px rgba(37, 99, 235, 0.14);
+}
+
+
+.input-wrapper.has-error input,
+.password-wrapper.has-error input {
+  border-color: var(--color-error);
+
+  background:
+    var(--color-error-background);
+}
+
+
+.input-wrapper.has-error input:focus,
+.password-wrapper.has-error input:focus {
+  box-shadow:
+    0 0 0 3px rgba(220, 38, 38, 0.12);
+}
+
+
+.input-wrapper.is-valid input,
+.password-wrapper.is-valid input {
+  border-color: var(--color-success);
+}
+
+
+.validation-icon {
+  position: absolute;
+
+  right: 15px;
+
+  width: 22px;
+  height: 22px;
+
+  display: grid;
+  place-items: center;
+}
+
+
+.valid-icon {
+  color: var(--color-success);
+}
+
+
+/* ============================================================
+   PASSWORD TOGGLE
+   ============================================================ */
+
+.password-toggle {
+  position: absolute;
+
+  right: 6px;
+
+  min-width: 44px;
+  height: 44px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+
+  border: 0;
+
+  border-radius: 8px;
+
+  color: var(--color-text-secondary);
+
+  background: transparent;
+
+  font-size: 12px;
+  font-weight: 600;
+}
+
+
+.password-toggle:hover {
+  color: var(--color-text);
+
+  background: #f1f5f9;
+}
+
+
+.password-toggle:focus-visible {
+  outline: 2px solid var(--color-focus);
+
+  outline-offset: 1px;
+}
+
+
+.password-toggle .eye-icon {
+  width: 17px;
+  height: 17px;
+}
+
+
+/* ============================================================
+   VALIDATION MESSAGES
+   ============================================================ */
+
+.field-error {
+  margin: 0;
+
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+
+  color: var(--color-error);
+
+  font-size: 12px;
+
+  line-height: 1.5;
+}
+
+
+.field-error .icon {
+  width: 15px;
+  height: 15px;
+
+  margin-top: 1px;
+}
+
+
+.valid-message {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+
+  color: var(--color-success);
+
+  font-size: 12px;
+  font-weight: 600;
+}
+
+
+.valid-message .icon {
+  width: 15px;
+  height: 15px;
+}
+
+
+/* ============================================================
+   PASSWORD STRENGTH
+   ============================================================ */
+
+.password-strength {
+  margin-top: 3px;
+}
+
+
+.strength-header {
+  display: flex;
+  justify-content: space-between;
+
+  margin-bottom: 7px;
+
+  color: var(--color-text-secondary);
+
+  font-size: 11px;
+}
+
+
+.strength-label {
+  font-weight: 800;
+}
+
+
+.strength-weak {
+  color: var(--color-error);
+}
+
+
+.strength-medium {
+  color: var(--color-warning);
+}
+
+
+.strength-strong {
+  color: var(--color-success);
+}
+
+
+.strength-bars {
+  display: flex;
+
+  gap: 5px;
+}
+
+
+.strength-bar {
+  height: 4px;
+
+  flex: 1;
+
+  border-radius: 999px;
+
+  background: #e2e8f0;
+}
+
+
+.strength-bar.active.strength-weak {
+  background: var(--color-error);
+}
+
+
+.strength-bar.active.strength-medium {
+  background: var(--color-warning);
+}
+
+
+.strength-bar.active.strength-strong {
+  background: var(--color-success);
+}
+
+
+/* ============================================================
+   FORM OPTIONS
+   ============================================================ */
+
+.form-options {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  margin-top: -4px;
+}
+
+
+.remember-option {
+  min-height: 44px;
+
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+
+  color: var(--color-text-secondary);
+
+  font-size: 13px;
+
+  cursor: pointer;
+}
+
+
+.remember-option input {
+  position: absolute;
+
+  opacity: 0;
+
+  pointer-events: none;
+}
+
+
+.custom-checkbox {
+  width: 19px;
+  height: 19px;
+
+  display: grid;
+  place-items: center;
+
+  border: 1px solid
+    var(--color-border-dark);
+
+  border-radius: 5px;
+
+  background: white;
+
+  transition:
+    background 160ms ease,
+    border-color 160ms ease;
+}
+
+
+.custom-checkbox .icon {
+  width: 13px;
+  height: 13px;
+
+  opacity: 0;
+
+  color: white;
+}
+
+
+.remember-option
+input:checked
++ .custom-checkbox {
+  border-color: var(--color-primary);
+
+  background: var(--color-primary);
+}
+
+
+.remember-option
+input:checked
++ .custom-checkbox
+.icon {
+  opacity: 1;
+}
+
+
+.remember-option
+input:focus-visible
++ .custom-checkbox {
+  outline: 2px solid var(--color-focus);
+
+  outline-offset: 2px;
+}
+
+
+.forgot-link {
+  min-height: 44px;
+
+  padding: 0;
+
+  border: 0;
+
+  color: var(--color-accent);
+
+  background: transparent;
+
+  font-size: 13px;
+  font-weight: 700;
+
+  text-decoration: none;
+}
+
+
+.forgot-link:hover {
+  color: var(--color-accent-hover);
+
+  text-decoration: underline;
+}
+
+
+/* ============================================================
+   SIGN IN BUTTON
+   ============================================================ */
+
+.sign-in-button {
+  width: 100%;
+  min-height: 52px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+
+  border: 0;
+  border-radius: var(--radius-md);
+
+  color: white;
+
+  background: var(--color-primary);
+
+  font-size: 15px;
+  font-weight: 700;
+
+  transition:
+    background 160ms ease,
+    transform 120ms ease,
+    box-shadow 160ms ease;
+}
+
+
+.sign-in-button:hover:not(:disabled) {
+  background: var(--color-primary-hover);
+
+  box-shadow:
+    0 8px 20px rgba(15, 23, 42, 0.15);
+
+  transform: translateY(-1px);
+}
+
+
+.sign-in-button:active:not(:disabled) {
+  background: var(--color-primary-active);
+
+  transform: translateY(0);
+}
+
+
+.sign-in-button:focus-visible {
+  outline: 3px solid
+    rgba(37, 99, 235, 0.35);
+
+  outline-offset: 2px;
+}
+
+
+.sign-in-button:disabled {
+  opacity: 0.55;
+
+  box-shadow: none;
+}
+
+
+/* ============================================================
+   SPINNER
+   ============================================================ */
+
+.spinner {
+  width: 17px;
+  height: 17px;
+
+  display: inline-block;
+
+  border: 2px solid
+    rgba(255, 255, 255, 0.35);
+
+  border-top-color: white;
+
+  border-radius: 50%;
+
+  animation:
+    spinner-rotation 0.7s linear infinite;
+}
+
+
+@keyframes spinner-rotation {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+
+/* ============================================================
+   DIVIDER
+   ============================================================ */
+
+.divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  margin: 28px 0 20px;
+}
+
+
+.divider span {
+  flex: 1;
+
+  height: 1px;
+
+  background: var(--color-border);
+}
+
+
+.divider strong {
+  color: var(--color-text-muted);
+
+  font-size: 10px;
+
+  letter-spacing: 0.12em;
+}
+
+
+/* ============================================================
+   GOOGLE
+   ============================================================ */
+
+.google-login-container {
+  position: relative;
+
+  min-height: 44px;
+}
+
+
+.google-button-container {
+  min-height: 44px;
+
+  display: flex;
+  justify-content: center;
+}
+
+
+.google-button-container.is-loading {
+  visibility: hidden;
+}
+
+
+.google-loading {
+  position: absolute;
+
+  inset: 0;
+
+  z-index: 2;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+
+  color: var(--color-text-secondary);
+
+  border: 1px solid var(--color-border-dark);
+
+  border-radius: var(--radius-md);
+
+  font-size: 13px;
+}
+
+
+.google-loading .spinner {
+  border-color: #cbd5e1;
+  border-top-color: var(--color-text);
+}
+
+
+.google-button-container iframe {
+  max-width: 100%;
+}
+
+
+.social-error {
+  margin: 8px 0 0;
+
+  display: flex;
+  gap: 6px;
+
+  color: var(--color-error);
+
+  font-size: 12px;
+}
+
+
+.social-error .icon {
+  width: 15px;
+  height: 15px;
+}
+
+
+/* ============================================================
+   ERROR SUMMARY
+   ============================================================ */
+
+.error-summary {
+  margin-bottom: 20px;
+
+  display: flex;
+  gap: 12px;
+
+  padding: 14px;
+
+  border: 1px solid
+    #fecaca;
+
+  border-radius: var(--radius-md);
+
+  color: #991b1b;
+
+  background: var(--color-error-background);
+
+  font-size: 13px;
+
+  line-height: 1.5;
+}
+
+
+.error-summary:focus {
+  outline: 2px solid var(--color-focus);
+
+  outline-offset: 2px;
+}
+
+
+.error-summary-icon {
+  flex: 0 0 auto;
+
+  width: 28px;
+  height: 28px;
+
+  display: grid;
+  place-items: center;
+
+  border-radius: 50%;
+
+  background: #fee2e2;
+}
+
+
+.error-summary-icon .icon {
+  width: 16px;
+  height: 16px;
+}
+
+
+.error-summary strong {
+  display: block;
+
+  margin-bottom: 4px;
+}
+
+
+.error-summary ul {
+  margin: 5px 0 0;
+  padding-left: 18px;
+}
+
+
+/* ============================================================
+   GENERAL ERROR / SUCCESS
+   ============================================================ */
+
+.general-error,
+.success-message {
+  margin-bottom: 20px;
+
+  min-height: 44px;
+
+  display: flex;
+  align-items: center;
+  gap: 9px;
+
+  padding: 11px 13px;
+
+  border-radius: var(--radius-md);
+
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+
+.general-error {
+  color: #991b1b;
+
+  background: var(--color-error-background);
+
+  border: 1px solid #fecaca;
+}
+
+
+.success-message {
+  color: #166534;
+
+  background: var(--color-success-background);
+
+  border: 1px solid #bbf7d0;
+}
+
+
+.general-error .icon,
+.success-message .icon {
+  width: 17px;
+  height: 17px;
+}
+
+
+/* ============================================================
+   SIGNUP
+   ============================================================ */
+
+.signup-prompt {
+  min-height: 44px;
+
+  margin-top: 24px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+
+  color: var(--color-text-secondary);
+
+  font-size: 13px;
+}
+
+
+.signup-prompt a {
+  min-height: 44px;
+
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+
+  color: var(--color-accent);
+
+  font-weight: 700;
+
+  text-decoration: none;
+}
+
+
+.signup-prompt a:hover {
+  text-decoration: underline;
+}
+
+
+.signup-prompt .arrow-icon {
+  width: 14px;
+  height: 14px;
+}
+
+@media (max-width: 767px) {
+  .main-content {
+    padding: 20px 12px;
+  }
+
+  .auth-container {
+    min-height: auto;
+    grid-template-columns: 1fr;
+    border-radius: 18px;
+  }
+
+  .promo-panel {
+    display: none;
+  }
+
+  .auth-card {
+    padding: 30px 20px 26px;
+  }
+}
+
+
+/* ============================================================
+   SECURITY
+   ============================================================ */
+
+.security-note {
+  margin-top: 26px;
+
+  display: flex;
+  gap: 11px;
+
+  padding: 14px;
+
+  border: 1px solid var(--color-border);
+
+  border-radius: var(--radius-md);
+
+  background: #f8fafc;
+}
+
+
+.security-icon {
+  width: 34px;
+  height: 34px;
+
+  flex: 0 0 auto;
+
+  display: grid;
+  place-items: center;
+
+  border-radius: 9px;
+
+  color: var(--color-success);
+
+  background: #dcfce7;
+}
+
+
+.security-icon .icon {
+  width: 17px;
+  height: 17px;
+}
+
+
+.security-note strong {
+  display: block;
+
+  margin-bottom: 3px;
+
+  font-size: 12px;
+}
+
+
+.security-note p {
+  margin: 0;
+
+  color: var(--color-text-secondary);
+
+  font-size: 11px;
+
+  line-height: 1.5;
+}
+
+
+.captcha-note {
+  margin-top: 14px;
+
+  color: var(--color-text-muted);
+
+  font-size: 10px;
+
+  line-height: 1.5;
+
+  text-align: center;
+}
+
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+
+.site-footer {
+  border-top: 1px solid var(--color-border);
+
+  background: white;
+}
+
+
+.footer-container {
+  width: min(
+    calc(100% - 48px),
+    var(--container-width)
+  );
+
+  min-height: 64px;
+
+  margin: 0 auto;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 20px;
+}
+
+
+.footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+
+.footer-links a {
+  color: var(--color-text-secondary);
+
+  font-size: 12px;
+
+  text-decoration: none;
+}
+
+
+.footer-links a:hover {
+  color: var(--color-text);
+  text-decoration: underline;
+}
+
+
+.footer-container p {
+  margin: 0;
+
+  color: var(--color-text-muted);
+
+  font-size: 11px;
+}
+
+
+/* ============================================================
+   TABLET
+   768px - 1023px
+   ============================================================ */
+
+@media (max-width: 1023px) {
+
+  .main-content {
+    padding: 24px 16px;
+  }
+
+
+  .auth-container {
+    min-height: auto;
+
+    grid-template-columns:
+      minmax(280px, 0.75fr)
+      minmax(420px, 1.25fr);
+  }
+
+
+  .promo-panel {
+    padding: 44px 36px;
+  }
+
+
+  .promo-content h1 {
+    font-size: 42px;
+  }
+
+
+  .promo-content p {
+    font-size: 14px;
+  }
+
+
+  .promo-visual {
+    height: 220px;
+  }
+
+
+  .product-orb {
+    width: 170px;
+    height: 170px;
+  }
+
+
+  .orb-core {
+    width: 75px;
+    height: 75px;
+
+    font-size: 38px;
+  }
+
+
+  .floating-card {
+    padding: 10px 13px;
+  }
+
+
+  .login-panel {
+    padding: 44px 40px;
+  }
+
+
+  .login-heading h2 {
+    font-size: 30px;
+  }
+
+
+  .footer-container {
+    flex-direction: column;
+
+    justify-content: center;
+
+    padding: 16px 0;
+  }
+}
+
+
+/* ============================================================
+   MOBILE
+   <= 767px
+   ============================================================ */
+
+@media (max-width: 767px) {
+
+  .site-header {
+    height: 64px;
+  }
+
+
+  .header-container {
+    width: calc(100% - 32px);
+  }
+
+
+  .brand-symbol {
+    width: 32px;
+    height: 32px;
+
+    font-size: 15px;
+  }
+
+
+  .brand-name {
+    font-size: 18px;
+  }
+
+
+  .header-help span {
+    display: none;
+  }
+
+
+  .main-content {
+    padding: 0;
+
+    display: block;
+  }
+
+
+  .auth-container {
+    width: 100%;
+
+    min-height: auto;
+
+    display: block;
+
+    border-radius: 0;
+
+    box-shadow: none;
+  }
+
+
+  /*
+   * Hide the large promotional composition on mobile.
+   * This keeps authentication fast and focused.
+   */
+  .promo-panel {
+    display: none;
+  }
+
+
+  .login-panel {
+    min-height: calc(100vh - 64px);
+
+    padding:
+      34px
+      20px
+      42px;
+  }
+
+
+  .login-content {
+    width: 100%;
+  }
+
+
+  .mobile-brand {
+    display: inline-block;
+
+    margin-bottom: 14px;
+
+    color: var(--color-accent);
+
+    font-size: 11px;
+    font-weight: 800;
+
+    letter-spacing: 0.18em;
+  }
+
+
+  .login-heading {
+    margin-bottom: 24px;
+  }
+
+
+  .login-heading h2 {
+    font-size: 27px;
+  }
+
+
+  .login-heading p {
+    font-size: 14px;
+  }
+
+
+  .login-form {
+    gap: 20px;
+  }
+
+
+  .input-wrapper input,
+  .password-wrapper input {
+    height: 52px;
+
+    font-size: 16px;
+  }
+
+
+  /*
+   * Every important mobile control is >= 44px.
+   */
+  .password-toggle {
+    min-width: 48px;
+    height: 48px;
+  }
+
+
+  .form-options {
+    align-items: flex-start;
+  }
+
+
+  .remember-option,
+  .forgot-link {
+    min-height: 44px;
+  }
+
+
+  .sign-in-button {
+    min-height: 54px;
+  }
+
+
+  .divider {
+    margin-top: 26px;
+  }
+
+
+  .signup-prompt {
+    flex-wrap: wrap;
+
+    margin-top: 20px;
+
+    text-align: center;
+  }
+
+
+  .security-note {
+    margin-top: 22px;
+  }
+
+
+  .footer-container {
+    width: calc(100% - 32px);
+
+    min-height: auto;
+
+    padding: 20px 0;
+  }
+
+
+  .footer-links {
+    width: 100%;
+
+    justify-content: center;
+
+    gap: 6px 18px;
+  }
+
+
+  .footer-links a {
+    min-height: 44px;
+
+    display: inline-flex;
+    align-items: center;
+  }
+
+
+  .footer-container p {
+    text-align: center;
+  }
+}
+
+
+/* ============================================================
+   VERY SMALL MOBILE
+   320px - 380px
+   ============================================================ */
+
+@media (max-width: 380px) {
+
+  .login-panel {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+
+  .login-heading h2 {
+    font-size: 25px;
+  }
+
+
+  .form-options {
+    gap: 5px;
+  }
+
+
+  .remember-option {
+    font-size: 12px;
+  }
+
+
+  .forgot-link {
+    font-size: 12px;
+  }
+
+
+  .password-toggle span {
+    display: none;
+  }
+
+
+  .signup-prompt {
+    font-size: 12px;
+  }
+}
+
+
+/* ============================================================
+   ACCESSIBILITY
+   ============================================================ */
+
+:focus-visible {
+  outline: 3px solid
+    rgba(37, 99, 235, 0.45);
+
+  outline-offset: 2px;
+}
+
+
+/*
+ * Respect users who request reduced motion.
+ */
+@media (prefers-reduced-motion: reduce) {
+
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+
+    transition-duration: 0.01ms !important;
+  }
+}
+
+
+/*
+ * High contrast preference.
+ */
+@media (prefers-contrast: more) {
+
+  .input-wrapper input,
+  .password-wrapper input {
+    border-width: 2px;
+  }
+
+
+  .sign-in-button {
+    border: 2px solid currentColor;
+  }
+
+
+  .field-error {
+    font-weight: 700;
+  }
+}
+
+
+/*
+ * Prevent accidental horizontal overflow.
+ */
+img,
+svg {
+  max-width: 100%;
+}
+
+
+button,
+input {
+  max-width: 100%;
+}
