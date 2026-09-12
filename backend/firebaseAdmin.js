@@ -12,10 +12,6 @@ import {
   getAuth,
 } from "firebase-admin/auth";
 
-import {
-  getMessaging,
-} from "firebase-admin/messaging";
-
 // =====================================================
 // FIREBASE ADMIN INITIALIZATION
 // =====================================================
