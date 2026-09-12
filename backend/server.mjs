@@ -34,6 +34,13 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+const frontendDirectory = path.resolve(
+  process.cwd(),
+  "dist/client"
+);
+
+app.use(express.static(frontendDirectory));
+
 // =====================================================
 // CLOUDINARY CONFIG
 // =====================================================
@@ -879,6 +886,21 @@ app.get(
 
 const PORT =
   process.env.PORT || 5000;
+
+app.use((req, res, next) => {
+  if (req.path.startsWith("/api/") || req.path.includes(".")) {
+    return next();
+  }
+
+  return res.sendFile(
+    path.join(frontendDirectory, "index.html"),
+    (error) => {
+      if (error) {
+        next(error);
+      }
+    }
+  );
+});
 
 app.listen(
   PORT,
