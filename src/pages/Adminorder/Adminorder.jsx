@@ -1,4 +1,4 @@
-import "./AdminOrder.css";
+import "./Adminorder.css";
 
 import { useEffect, useRef, useState } from "react";
 
