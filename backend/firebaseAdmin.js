@@ -1,105 +1,3 @@
-// import fs from "fs";
-// import path from "path";
-
-// import {
-//   initializeApp,
-//   cert,
-//   getApps,
-// } from "firebase-admin/app";
-
-// import {
-//   getFirestore,
-// } from "firebase-admin/firestore";
-
-// import {
-//   getAuth,
-// } from "firebase-admin/auth";
-
-// import {
-//   getMessaging,
-// } from "firebase-admin/messaging";
-
-// import { fileURLToPath } from "url";
-
-
-
-// const __filename = fileURLToPath(import.meta.url);
-// const __dirname = path.dirname(__filename);
-
-// // // Firebase Service Account JSON
-// const serviceAccountPath = path.join(
-//   __dirname,
-//   "..",
-//   "serviceAccountKey.json"
-// );
-
-// // =============================
-// // READ SERVICE ACCOUNT
-// // =============================
-
-// if (!fs.existsSync(serviceAccountPath)) {
-//   throw new Error(
-//     `❌ Firebase service account file not found:\n${serviceAccountPath}`
-//   );
-// }
-
-// const serviceAccount = JSON.parse(
-//   fs.readFileSync(serviceAccountPath, "utf8")
-// );
-
-// // =============================
-// // INITIALIZE FIREBASE ADMIN
-// // =============================
-
-// const firebaseApp =
-//   getApps().length === 0
-//     ? initializeApp({
-//         credential: cert(serviceAccount),
-//       })
-//     : getApps()[0];
-
-// // =============================
-// // FIREBASE SERVICES
-// // =============================
-
-// export const db = getFirestore(firebaseApp);
-
-// export const auth = getAuth(firebaseApp);
-
-// export const messaging = getMessaging(firebaseApp);
-
-// // =============================
-// // FIREBASE ADMIN APP
-// // =============================
-
-// export { firebaseApp };
-
-// // =============================
-// // LOGS
-// // =============================
-
-// console.log("=================================");
-// console.log("🔥 Firebase Admin initialized");
-// console.log("🔥 Firestore initialized");
-// console.log("🔥 Firebase Auth initialized");
-// console.log("🔔 Firebase Cloud Messaging initialized");
-// console.log("=================================");
-
-// console.log("=================================");
-// console.log("🔥 FIREBASE ADMIN PROJECT");
-// console.log("Project ID:", serviceAccount.project_id);
-// console.log("Client Email:", serviceAccount.client_email);
-// console.log("=================================");
-
-
-
-
-
-
-import fs from "fs";
-import path from "path";
-import { fileURLToPath } from "url";
-
 import {
   initializeApp,
   cert,
@@ -119,54 +17,103 @@ import {
 } from "firebase-admin/messaging";
 
 // =====================================================
-// PATH
+// FIREBASE ADMIN INITIALIZATION
 // =====================================================
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+let firebaseApp;
 
-// =====================================================
-// SERVICE ACCOUNT
-// =====================================================
+if (getApps().length === 0) {
+  // ===================================================
+  // PRODUCTION / RENDER
+  // ===================================================
 
-const serviceAccountPath = path.join(
-  __dirname,
-  "..",
-  "serviceAccountKey.json"
-);
+  if (
+    process.env.FIREBASE_PROJECT_ID &&
+    process.env.FIREBASE_CLIENT_EMAIL &&
+    process.env.FIREBASE_PRIVATE_KEY
+  ) {
+    console.log("🔥 Initializing Firebase Admin from ENV...");
 
-console.log(
-  "🔥 Service Account:",
-  serviceAccountPath
-);
+    firebaseApp = initializeApp({
+      credential: cert({
+        projectId: process.env.FIREBASE_PROJECT_ID,
 
-if (!fs.existsSync(serviceAccountPath)) {
-  throw new Error(
-    `❌ Firebase service account file not found:\n${serviceAccountPath}`
-  );
+        clientEmail:
+          process.env.FIREBASE_CLIENT_EMAIL,
+
+        privateKey:
+          process.env.FIREBASE_PRIVATE_KEY.replace(
+            /\\n/g,
+            "\n"
+          ),
+      }),
+    });
+
+    console.log("✅ Firebase Admin initialized from ENV");
+  }
+
+  // ===================================================
+  // LOCAL DEVELOPMENT
+  // ===================================================
+
+  else {
+    console.log(
+      "🔥 Firebase ENV not found. Trying local serviceAccountKey.json..."
+    );
+
+    const fs = await import("fs");
+    const path = await import("path");
+    const { fileURLToPath } = await import("url");
+
+    const __filename = fileURLToPath(import.meta.url);
+    const __dirname = path.dirname(__filename);
+
+    const serviceAccountPath = path.join(
+      __dirname,
+      "..",
+      "serviceAccountKey.json"
+    );
+
+    console.log(
+      "🔥 Local Service Account:",
+      serviceAccountPath
+    );
+
+    if (!fs.existsSync(serviceAccountPath)) {
+      throw new Error(
+        `❌ Firebase credentials not found.\n\n` +
+        `For Render, add FIREBASE_PROJECT_ID, ` +
+        `FIREBASE_CLIENT_EMAIL and FIREBASE_PRIVATE_KEY ` +
+        `Environment Variables.\n\n` +
+        `For local development, make sure serviceAccountKey.json exists.`
+      );
+    }
+
+    const serviceAccount = JSON.parse(
+      fs.readFileSync(
+        serviceAccountPath,
+        "utf8"
+      )
+    );
+
+    firebaseApp = initializeApp({
+      credential: cert(serviceAccount),
+    });
+
+    console.log(
+      "✅ Firebase Admin initialized from local JSON"
+    );
+  }
 }
-
-const serviceAccount = JSON.parse(
-  fs.readFileSync(serviceAccountPath, "utf8")
-);
-
-// =====================================================
-// INITIALIZE FIREBASE ADMIN
-// =====================================================
-
-const firebaseApp =
-  getApps().length === 0
-    ? initializeApp({
-        credential: cert(serviceAccount),
-      })
-    : getApps()[0];
 
 // =====================================================
 // FIREBASE SERVICES
 // =====================================================
 
 const db = getFirestore(firebaseApp);
+
 const auth = getAuth(firebaseApp);
+
 const messaging = getMessaging(firebaseApp);
 
 // =====================================================
@@ -185,13 +132,8 @@ export {
 // =====================================================
 
 console.log("=================================");
-console.log("🔥 Firebase Admin initialized");
-console.log("🔥 Firestore initialized");
-console.log("🔥 Firebase Auth initialized");
-console.log("🔔 Firebase Cloud Messaging initialized");
-console.log("=================================");
-
-console.log("🔥 FIREBASE ADMIN PROJECT");
-console.log("Project ID:", serviceAccount.project_id);
-console.log("Client Email:", serviceAccount.client_email);
+console.log("🔥 Firebase Admin ready");
+console.log("🔥 Firestore ready");
+console.log("🔥 Firebase Auth ready");
+console.log("🔔 Firebase Messaging ready");
 console.log("=================================");
