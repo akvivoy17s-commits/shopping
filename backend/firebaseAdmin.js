@@ -35,9 +35,3 @@ export {
   messaging,
 };
 
-console.log("=================================");
-console.log("🔥 Firebase Admin initialized");
-console.log("🔥 Firestore initialized");
-console.log("🔥 Firebase Auth initialized");
-console.log("🔔 Firebase Messaging initialized");
-console.log("=================================");

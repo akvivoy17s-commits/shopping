@@ -393,11 +393,6 @@ function Wishlist() {
                   (product) => product !== null
                 );
 
-              console.log(
-                "Wishlist products:",
-                validProducts
-              );
-
               setWishlistItems(validProducts);
               setLoading(false);
             } catch (error) {
@@ -466,10 +461,6 @@ function Wishlist() {
 
       await deleteDoc(wishlistRef);
 
-      console.log(
-        "Removed from wishlist:",
-        productId
-      );
     } catch (error) {
       console.error(
         "Remove wishlist error:",

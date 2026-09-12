@@ -206,10 +206,6 @@ function Home() {
           lastVisibleProduct;
         hasMore = snapshot.docs.length === pageSize;
 
-        console.log(
-          `Loaded ${productList.length} products`
-        );
-
         setProducts((previousProducts) => [
           ...previousProducts,
           ...productList,
@@ -532,10 +528,6 @@ function Home() {
         });
       }
 
-      console.log(
-        "Added to cart:",
-        product.id
-      );
     } catch (error) {
       console.error(
         "Add to cart error:",

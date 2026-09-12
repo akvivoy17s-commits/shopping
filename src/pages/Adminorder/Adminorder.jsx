@@ -523,10 +523,6 @@ export default function AdminOrders() {
         }
       );
 
-      console.log(
-        "Payment verified:",
-        order.id
-      );
 
       alert(
         "Payment verified successfully."
@@ -716,10 +712,6 @@ export default function AdminOrders() {
         });
       }
 
-      console.log(
-        "Order status updated:",
-        newStatus
-      );
     } catch (error) {
       console.error(
         "Status update error:",

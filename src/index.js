@@ -37,9 +37,6 @@ export default {
       try {
         const subscription = await request.json();
 
-        console.log(
-          "📥 Admin subscription received"
-        );
 
         // Validate subscription
         if (
@@ -68,9 +65,6 @@ export default {
           JSON.stringify(subscription)
         );
 
-        console.log(
-          "✅ Admin subscription saved successfully"
-        );
 
         return json({
           success: true,
@@ -109,14 +103,6 @@ export default {
 
         const payload = await request.json();
 
-        console.log(
-          "📨 Notification request received"
-        );
-
-        console.log(
-          "📦 Payload:",
-          JSON.stringify(payload)
-        );
 
         // -------------------------------------------------
         // Check KV binding
@@ -288,9 +274,6 @@ export default {
           },
         };
 
-        console.log(
-          "🔔 Sending notification..."
-        );
 
         // -------------------------------------------------
         // SEND PUSH
@@ -302,14 +285,6 @@ export default {
             JSON.stringify(notification)
           );
 
-        console.log(
-          "✅ Push notification sent"
-        );
-
-        console.log(
-          "📡 Push response status:",
-          result?.statusCode
-        );
 
         return json({
           success: true,
@@ -356,18 +331,12 @@ export default {
           error?.statusCode === 404 ||
           error?.statusCode === 410
         ) {
-          console.log(
-            "🗑️ Removing expired admin subscription..."
-          );
 
           try {
             await env.ADMIN_SUBSCRIPTIONS.delete(
               "admin"
             );
 
-            console.log(
-              "✅ Expired subscription removed"
-            );
           } catch (deleteError) {
             console.error(
               "❌ Failed to delete subscription:",

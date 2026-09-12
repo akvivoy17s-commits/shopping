@@ -87,7 +87,6 @@ const handleProductClick = (productId) => {
         };
       });
 
-      console.log("🛒 CART ITEMS:", items);
 
       setCartItems(items);
       setLoading(false);

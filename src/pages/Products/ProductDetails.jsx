@@ -200,7 +200,6 @@ useEffect(() => {
     return;
   }
 
-  console.log("🔎 Product ID:", id);
 
   const productRef = doc(db, "products", id);
 
@@ -210,7 +209,6 @@ useEffect(() => {
       if (productSnap.exists()) {
         const data = productSnap.data();
 
-        console.log("✅ Product found:", data);
 
         setProduct({
           id: productSnap.id,
@@ -313,7 +311,6 @@ const handleWishlist = async () => {
 
       setIsWishlisted(false);
 
-      console.log("Removed from wishlist");
     } else {
       // ♡ Not liked → Add
       await setDoc(wishlistRef, {
@@ -328,7 +325,6 @@ const handleWishlist = async () => {
 
       setIsWishlisted(true);
 
-      console.log("Added to wishlist");
     }
   } catch (error) {
     console.error("Wishlist error:", error);
@@ -419,9 +415,6 @@ const handleWishlist = async () => {
   // =====================================================
 
   const handleBuyNow = () => {
-  console.log("🛒 Buy Now clicked");
-  console.log("Product:", product);
-  console.log("Product ID:", product?.id);
 
   if (!product?.id) {
     console.error("❌ Product ID missing");

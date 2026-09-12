@@ -15,16 +15,6 @@ dotenv.config({
   path: path.resolve(process.cwd(), ".env"),
 });
 
-console.log(
-  "ENV FILE:",
-  path.resolve(process.cwd(), ".env")
-);
-
-console.log(
-  "cloud_name:",
-  process.env.CLOUDINARY_CLOUD_NAME
-);
-
 // =====================================================
 // EXPRESS APP
 // =====================================================
@@ -78,11 +68,6 @@ app.post(
         });
       }
 
-      console.log(
-        "Profile image received:",
-        req.file.originalname
-      );
-
       // =================================================
       // SHARP
       // =================================================
@@ -96,18 +81,6 @@ app.post(
           quality: 75,
         })
         .toBuffer();
-
-      console.log(
-        "Original size:",
-        req.file.size,
-        "bytes"
-      );
-
-      console.log(
-        "Compressed size:",
-        compressedImage.length,
-        "bytes"
-      );
 
       // =================================================
       // CLOUDINARY
@@ -133,11 +106,6 @@ app.post(
 
           stream.end(compressedImage);
         }
-      );
-
-      console.log(
-        "Cloudinary URL:",
-        result.secure_url
       );
 
       return res.status(200).json({
@@ -902,19 +870,4 @@ app.use((req, res, next) => {
   );
 });
 
-app.listen(
-  PORT,
-  () => {
-    console.log(
-      "================================="
-    );
-
-    console.log(
-      `🚀 Server running on http://localhost:${PORT}`
-    );
-
-    console.log(
-      "================================="
-    );
-  }
-);
+app.listen(PORT);

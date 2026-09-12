@@ -50,8 +50,6 @@ const handleGoogleSignIn = async () => {
 
     const user = result.user;
 
-    console.log("Logged in:", user.email);
-    console.log("UID:", user.uid);
 
 
     // ==================================
@@ -104,9 +102,6 @@ const handleGoogleSignIn = async () => {
           serverTimestamp(),
       });
 
-      console.log(
-        "New user created"
-      );
 
     } else {
 
@@ -174,23 +169,6 @@ const handleGoogleSignIn = async () => {
       latestData?.role || "user";
 
 
-    console.log(
-      "======================"
-    );
-
-    console.log(
-      "Email:",
-      user.email
-    );
-
-    console.log(
-      "Role:",
-      role
-    );
-
-    console.log(
-      "======================"
-    );
 
 
     // ==================================

@@ -211,16 +211,6 @@ function Category() {
             productList.slice(0, 20);
         }
 
-        console.log(
-          "Category:",
-          categoryName
-        );
-
-        console.log(
-          "Products:",
-          productList
-        );
-
         setProducts(productList);
       } catch (error) {
         console.error(

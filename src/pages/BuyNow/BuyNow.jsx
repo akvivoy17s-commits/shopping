@@ -576,16 +576,6 @@ const sendAdminNotification = async ({
 
     const result = await response.json();
 
-console.log(
-  "🔔 ADMIN NOTIFICATION STATUS:",
-  response.status
-);
-
-console.log(
-  "🔔 ADMIN NOTIFICATION RESULT:",
-  JSON.stringify(result, null, 2)
-);
-
 if (!response.ok) {
   console.error(
     "❌ ADMIN NOTIFICATION ERROR:",
@@ -897,49 +887,6 @@ if (!response.ok) {
       // ===================================================
       // FIRESTORE SUCCESS
       // ===================================================
-
-      console.log(
-        "================================"
-      );
-
-      console.log(
-        "✅ ORDER CREATED"
-      );
-
-      console.log(
-        "Order ID:",
-        orderRef.id
-      );
-
-      console.log(
-        "Customer:",
-        address.name.trim()
-      );
-
-      console.log(
-        "Products:",
-        checkoutItems.length
-      );
-
-      console.log(
-        "Quantity:",
-        totalProductQuantity
-      );
-
-      console.log(
-        "Total:",
-        total
-      );
-
-      console.log(
-        "Payment:",
-        paymentMethod
-      );
-
-      console.log(
-        "================================"
-      );
-
 
       // ===================================================
 // SEND ADMIN PUSH NOTIFICATION

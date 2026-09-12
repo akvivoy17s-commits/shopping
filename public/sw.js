@@ -35,7 +35,6 @@
 
 
 self.addEventListener("push", (event) => {
-  console.log("🔔 Push event received");
 
   let data = {};
 
@@ -79,7 +78,6 @@ self.addEventListener("push", (event) => {
 
 
 self.addEventListener("notificationclick", (event) => {
-  console.log("🔔 Notification clicked");
 
   event.notification.close();
 

@@ -59,18 +59,12 @@ const VAPID_PUBLIC_KEY =
 
 const setupAdminNotifications = async () => {
   try {
-    console.log(
-      "🔔 Starting admin notification setup..."
-    );
 
     // ==========================================
     // Browser Notification Support
     // ==========================================
 
     if (!("Notification" in window)) {
-      console.log(
-        "❌ Browser notification not supported"
-      );
       return;
     }
 
@@ -79,9 +73,6 @@ const setupAdminNotifications = async () => {
     // ==========================================
 
     if (!("serviceWorker" in navigator)) {
-      console.log(
-        "❌ Service Worker not supported"
-      );
       return;
     }
 
@@ -100,10 +91,6 @@ const setupAdminNotifications = async () => {
       return;
     }
 
-    console.log(
-      "🔑 VAPID public key length:",
-      VAPID_PUBLIC_KEY.length
-    );
 
     // ==========================================
     // Notification Permission
@@ -117,15 +104,8 @@ const setupAdminNotifications = async () => {
         await Notification.requestPermission();
     }
 
-    console.log(
-      "🔔 Notification permission:",
-      permission
-    );
 
     if (permission !== "granted") {
-      console.log(
-        "❌ Notification permission denied"
-      );
       return;
     }
 
@@ -138,9 +118,6 @@ const setupAdminNotifications = async () => {
         "/sw.js"
       );
 
-    console.log(
-      "✅ Service worker registered"
-    );
 
     // ==========================================
     // Wait for Service Worker Ready
@@ -149,9 +126,6 @@ const setupAdminNotifications = async () => {
     const readyRegistration =
       await navigator.serviceWorker.ready;
 
-    console.log(
-      "✅ Service worker ready"
-    );
 
     // ==========================================
     // Convert VAPID Public Key
@@ -162,10 +136,6 @@ const setupAdminNotifications = async () => {
         VAPID_PUBLIC_KEY.trim()
       );
 
-    console.log(
-      "🔑 Application server key bytes:",
-      applicationServerKey.length
-    );
 
     // VAPID public key MUST be 65 bytes
     if (
@@ -205,9 +175,6 @@ const setupAdminNotifications = async () => {
     // ==========================================
 
     if (!subscription) {
-      console.log(
-        "🔔 Creating new push subscription..."
-      );
 
       subscription =
         await readyRegistration.pushManager.subscribe(
@@ -219,13 +186,7 @@ const setupAdminNotifications = async () => {
           }
         );
 
-      console.log(
-        "✅ New admin push subscription created"
-      );
     } else {
-      console.log(
-        "✅ Existing admin push subscription found"
-      );
     }
 
     // ==========================================
@@ -251,10 +212,6 @@ const setupAdminNotifications = async () => {
     const result =
       await response.json();
 
-    console.log(
-      "☁️ Cloudflare subscribe response:",
-      result
-    );
 
     if (!response.ok) {
       console.error(
@@ -266,9 +223,6 @@ const setupAdminNotifications = async () => {
     }
 
     if (result.success) {
-      console.log(
-        "🎉 ADMIN NOTIFICATION SETUP COMPLETE"
-      );
     }
   } catch (error) {
     console.error(
