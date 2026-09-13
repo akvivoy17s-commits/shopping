@@ -9,6 +9,11 @@ import {
   serverTimestamp,
 } from "firebase/firestore";
 
+const API_BASE_URL = (
+  import.meta.env.VITE_API_URL ||
+  "https://js-fashion-2.onrender.com"
+).replace(/\/$/, "");
+
 export default function AdminProducts() {
   const [products, setProducts] = useState([]);
   const [editingId, setEditingId] = useState(null);
@@ -76,7 +81,7 @@ export default function AdminProducts() {
     const token = await getToken();
 
     const response = await fetch(
-      "http://localhost:5000/add-pro",
+      `${API_BASE_URL}/api/add-pro`,
       {
         method: "GET",
         headers: {
@@ -170,8 +175,8 @@ export default function AdminProducts() {
       });
 
       const url = editingId
-        ? `http://localhost:5000/add-pro/${editingId}`
-        : "http://localhost:5000/add-pro";
+        ? `${API_BASE_URL}/api/add-pro/${editingId}`
+        : `${API_BASE_URL}/api/add-pro`;
 
       const method = editingId ? "PUT" : "POST";
 
@@ -261,7 +266,7 @@ export default function AdminProducts() {
       const token = await getToken();
 
       const response = await fetch(
-        `http://localhost:5000/add-pro/${id}`,
+        `${API_BASE_URL}/api/add-pro/${id}`,
         {
           method: "DELETE",
           headers: {

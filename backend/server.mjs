@@ -235,7 +235,7 @@ const uploadToCloudinary = (
 // =====================================================
 
 app.post(
-  "/add-pro",
+  "/api/add-pro",
   verifyAdmin,
   upload.array(
     "images",
@@ -383,7 +383,7 @@ app.post(
 // =====================================================
 
 app.get(
-  "/add-pro",
+  "/api/add-pro",
   verifyAdmin,
   async (req, res) => {
     try {
@@ -427,7 +427,7 @@ app.get(
 // =====================================================
 
 app.put(
-  "/add-pro/:id",
+  "/api/add-pro/:id",
   verifyAdmin,
   upload.array(
     "images",
@@ -637,7 +637,7 @@ app.put(
 // =====================================================
 
 app.delete(
-  "/add-pro/:id",
+  "/api/add-pro/:id",
   verifyAdmin,
   async (req, res) => {
     try {
