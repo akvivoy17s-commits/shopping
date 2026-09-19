@@ -231,56 +231,7 @@ useEffect(() => {
   return () => unsubscribeProduct();
 }, [id]);
 
-// const handleWishlist = async () => {
-//   try {
-//     const user = auth.currentUser;
 
-//     if (!user) {
-//       alert("Please login first");
-//       navigate("/login");
-//       return;
-//     }
-
-//     if (!product?.id) {
-//       console.error("❌ Product ID missing");
-//       return;
-//     }
-
-//     const wishlistRef = doc(
-//       db,
-//       "users",
-//       user.uid,
-//       "wishlist",
-//       product.id
-//     );
-
-//     const wishlistSnap = await getDoc(wishlistRef);
-
-//     if (wishlistSnap.exists()) {
-//       // ❤️ Already wishlist → Remove
-//       await deleteDoc(wishlistRef);
-
-//       alert("Removed from wishlist");
-//     } else {
-//       // ♡ Not wishlist → Add
-//       await setDoc(wishlistRef, {
-//         productId: product.id,
-//         name: product.name || "",
-//         price: Number(product.price || 0),
-//         image: product.imageUrls?.[0] || "",
-//         brand: product.brand || "",
-//         category: product.category || "",
-//         addedAt: serverTimestamp(),
-//       });
-
-//       alert("Added to wishlist ❤️");
-//     }
-//   } catch (error) {
-//     console.error("❌ Wishlist error:", error);
-//     alert("Failed to update wishlist");
-//   }
-// };
-  
 
 const handleWishlist = async () => {
   try {
@@ -332,21 +283,31 @@ const handleWishlist = async () => {
   }
 };
 
-  // =====================================================
-  // PRODUCT NOT FOUND
-  // =====================================================
+// =====================================================
+// PRODUCT LOADING / NOT FOUND
+// =====================================================
 
-  if (!product) {
-    return (
-      <div className="product-not-found">
-        <h2>Product not found</h2>
+if (loading) {
+  return (
+    <div className="product-loading">
+      <div className="loading-spinner"></div>
+      <h2>Loading product...</h2>
+      <p>Please wait...</p>
+    </div>
+  );
+}
 
-        <button onClick={() => navigate("/")}>
-          Go Back
-        </button>
-      </div>
-    );
-  }
+if (!product) {
+  return (
+    <div className="product-not-found">
+      <h2>Product not found</h2>
+
+      <button onClick={() => navigate("/")}>
+        Go Back
+      </button>
+    </div>
+  );
+}
 
   // =====================================================
   // PRODUCT DATA
