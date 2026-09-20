@@ -1364,3 +1364,28 @@ body {
     right: 8px;
   }
 }
+
+.share-button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  background: transparent;
+  border: none;
+
+  color: #6f6658;
+  cursor: pointer;
+
+  font-size: 15px;
+
+  transition: all 0.2s ease;
+}
+
+.share-button:hover {
+  color: #8b6b20;
+  transform: translateY(-2px);
+}
+
+.share-button svg {
+  stroke-width: 1.8;
+}
