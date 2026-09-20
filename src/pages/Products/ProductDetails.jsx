@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { onAuthStateChanged } from "firebase/auth";
+import { Share2, Copy, Check } from "lucide-react";
 
 import {
   doc,
@@ -657,6 +658,59 @@ if (!product) {
 
           <div className="main-product-image">
 
+
+
+const ShareButton = ({ product }) => {
+  const [copied, setCopied] = useState(false);
+
+  const productUrl = window.location.href;
+
+  const shareProduct = async () => {
+    const shareData = {
+      title: product?.name || "Check out this product",
+      text: `Check out ${product?.name || "this product"}!`,
+      url: productUrl,
+    };
+
+    // Mobile / supported browsers
+    if (navigator.share) {
+      try {
+        await navigator.share(shareData);
+      } catch (error) {
+        // User cancelled share
+        console.log("Share cancelled");
+      }
+      return;
+    }
+
+    // Desktop fallback
+    try {
+      await navigator.clipboard.writeText(productUrl);
+
+      setCopied(true);
+
+      setTimeout(() => {
+        setCopied(false);
+      }, 2000);
+    } catch (error) {
+      console.error("Copy failed:", error);
+    }
+  };
+
+  return (
+    <button
+      onClick={shareProduct}
+      title="Share product"
+      className="share-button"
+    >
+      {copied ? <Check size={22} /> : <Share2 size={22} />}
+
+      <span>
+        {copied ? "Copied!" : "Share"}
+      </span>
+    </button>
+  );
+};
             <button
   className={`wishlist ${isWishlisted ? "liked" : ""}`}
   onClick={(e) => {
@@ -1240,74 +1294,6 @@ if (!product) {
           </div>
 
         </div>
-
-
-        {/* =================================================
-            REAL-TIME REVIEWS
-        ================================================= */}
-
-        {/* {reviews.length === 0 ? (
-
-          <div className="no-reviews">
-
-            <h3>
-              No reviews yet
-            </h3>
-
-            <p>
-              Be the first person to review this product.
-            </p>
-
-          </div>
-
-        ) : (
-
-          reviews.map((review) => (
-
-            <div
-              className="review"
-              key={review.id}
-            >
-
-              <div className="review-rating">
-                {review.rating} ★
-              </div>
-
-
-              <h3>
-                {review.title ||
-                  "Customer Review"}
-              </h3>
-
-
-              <p>
-                {review.review}
-              </p>
-
-
-              <div className="review-user">
-
-                <span>
-                  {(
-                    review.userName || "U"
-                  )
-                    .substring(0, 2)
-                    .toUpperCase()}
-                </span>
-
-                {review.userName || "User"}
-
-                {review.verifiedPurchase && (
-                  <> · Verified Purchase</>
-                )}
-
-              </div>
-
-            </div>
-
-          ))
-
-        )} */}
 
 {reviews.length > 0 ? (
   reviews.map((review) => (
