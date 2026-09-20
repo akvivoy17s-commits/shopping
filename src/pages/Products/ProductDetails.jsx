@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { onAuthStateChanged } from "firebase/auth";
-import { Share2, Copy, Check } from "lucide-react";
+import { Share2, Check } from "lucide-react";
 
 import {
   doc,
@@ -19,6 +19,43 @@ import {
 
 import { db, auth } from "../../../backend/firebase";
 import "./PoductDetails.css";
+
+const ShareButton = ({ product }) => {
+  const [copied, setCopied] = useState(false);
+  const productUrl = window.location.href;
+
+  const shareProduct = async () => {
+    const shareData = {
+      title: product?.name || "Check out this product",
+      text: `Check out ${product?.name || "this product"}!`,
+      url: productUrl,
+    };
+
+    if (navigator.share) {
+      try {
+        await navigator.share(shareData);
+      } catch {
+        console.log("Share cancelled");
+      }
+      return;
+    }
+
+    try {
+      await navigator.clipboard.writeText(productUrl);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch (error) {
+      console.error("Copy failed:", error);
+    }
+  };
+
+  return (
+    <button onClick={shareProduct} title="Share product" className="share-button">
+      {copied ? <Check size={22} /> : <Share2 size={22} />}
+      <span>{copied ? "Copied!" : "Share"}</span>
+    </button>
+  );
+};
 
 function ProductDetails() {
   const { id } = useParams();
@@ -657,60 +694,6 @@ if (!product) {
 
 
           <div className="main-product-image">
-
-
-
-const ShareButton = ({ product }) => {
-  const [copied, setCopied] = useState(false);
-
-  const productUrl = window.location.href;
-
-  const shareProduct = async () => {
-    const shareData = {
-      title: product?.name || "Check out this product",
-      text: `Check out ${product?.name || "this product"}!`,
-      url: productUrl,
-    };
-
-    // Mobile / supported browsers
-    if (navigator.share) {
-      try {
-        await navigator.share(shareData);
-      } catch (error) {
-        // User cancelled share
-        console.log("Share cancelled");
-      }
-      return;
-    }
-
-    // Desktop fallback
-    try {
-      await navigator.clipboard.writeText(productUrl);
-
-      setCopied(true);
-
-      setTimeout(() => {
-        setCopied(false);
-      }, 2000);
-    } catch (error) {
-      console.error("Copy failed:", error);
-    }
-  };
-
-  return (
-    <button
-      onClick={shareProduct}
-      title="Share product"
-      className="share-button"
-    >
-      {copied ? <Check size={22} /> : <Share2 size={22} />}
-
-      <span>
-        {copied ? "Copied!" : "Share"}
-      </span>
-    </button>
-  );
-};
             <button
   className={`wishlist ${isWishlisted ? "liked" : ""}`}
   onClick={(e) => {
@@ -788,6 +771,8 @@ const ShareButton = ({ product }) => {
             </span>
 
           </div>
+
+          <ShareButton product={product} />
 
 
           {/* PRICE */}

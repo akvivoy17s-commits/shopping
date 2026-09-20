@@ -3,10 +3,36 @@ import {
   cert,
   getApps,
 } from "firebase-admin/app";
+import dotenv from "dotenv";
+import path from "path";
 
 import { getFirestore } from "firebase-admin/firestore";
 import { getAuth } from "firebase-admin/auth";
 import { getMessaging } from "firebase-admin/messaging";
+
+// This module is imported before server.mjs can run dotenv.config(), because
+// ESM imports are evaluated before the importing module's body. Load the
+// project environment here so the Firebase credential is always available.
+dotenv.config({
+  path: path.resolve(process.cwd(), ".env"),
+});
+
+const requiredFirebaseVariables = [
+  "FIREBASE_PROJECT_ID",
+  "FIREBASE_CLIENT_EMAIL",
+  "FIREBASE_PRIVATE_KEY",
+];
+
+const missingFirebaseVariables = requiredFirebaseVariables.filter(
+  (variable) => !process.env[variable],
+);
+
+if (missingFirebaseVariables.length > 0) {
+  throw new Error(
+    `Missing Firebase Admin environment variable(s): ${missingFirebaseVariables.join(", ")}. ` +
+      "Add them to the .env file in the project root.",
+  );
+}
 
 let firebaseApp;
 
