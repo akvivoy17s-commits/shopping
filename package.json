@@ -18,6 +18,7 @@
     "express": "^5.2.1",
     "firebase": "^12.19.0",
     "firebase-admin": "^14.4.0",
+    "lucide-react": "^1.47.0",
     "multer": "^2.3.0",
     "react": "^19.2.8",
     "react-dom": "^19.2.8",
